@@ -1,0 +1,15 @@
+name: faq-extractor
+dependencies:
+  - bert_score
+  - matplotlib
+  - jupyter
+  - openai
+  - pandas
+  - pip
+  - rouge-score
+  - scikit-learn
+  - transformers
+  - pip:
+    - evaluate==0.4.3
+    - sentence-transformers
+    - .
