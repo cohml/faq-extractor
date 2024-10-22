@@ -34,11 +34,11 @@ representative FAQs.
 
 ## Installation
 
-To install the package and its dependencies, run the following command from
-the root directory of the project:
+To install the package and its dependencies as appropriate for your operating
+system, run the following script from the root directory of the project:
 
 ```bash
-conda env create --file environment.yaml
+bash setup-env.sh
 ```
 
 This will create a new conda environment named `faq-extractor` with all
