@@ -175,12 +175,24 @@ parser.add_argument(
     help= "Whether your GPT deployment is accessible through Azure OpenAI."
 )
 
+parser.add_argument(
+    "--temperature",
+    default=0.2,
+    type=float,
+    help=(
+        "Temperature setting for GPT generation stage. Default: "
+        "%(default)s"
+    ),
+)
 
 parser.add_argument(
     "--seed",
     type=lambda x: np.random.RandomState(int(x)),
     dest="random_state",
-    help="Seed value for reproducibility. Default: %(default)s",
+    help=(
+        "Seed value for reproducible randomization. Default: "
+        "%(default)s"
+    ),
 )
 
 args = parser.parse_args()

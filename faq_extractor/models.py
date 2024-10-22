@@ -75,6 +75,7 @@ def load_spelling_correction_model(
 def load_summarization_model(
     config: dict[str, Any],
     use_azure_openai: bool,
+    temperature: Optional[float],
 ) -> Callable:
     """
     Initialize and return the OpenAI client for GPT inference.
@@ -86,6 +87,8 @@ def load_summarization_model(
         metadata.
     use_azure_openai : bool
         Whether to connect via Azure OpenAI or directly via OpenAI.
+    temperature : float
+        Temperature for GPT token generation.
 
     Returns
     -------
@@ -117,7 +120,7 @@ def load_summarization_model(
     return partial(
         openai_client.chat.completions.create,
         model=config["OPENAI_MODEL"],
-        temperature=0.2,
+        temperature=temperature,
     )
 
 
@@ -129,7 +132,7 @@ embedding_model = SentenceTransformer(
 
 kmeans = KMeans(n_clusters=args.n_clusters, random_state=args.random_state)
 
-pca = PCA(n_components=args.n_principal_components)
+pca = PCA(n_components=args.n_principal_components, random_state=args.random_state)
 logger.info(f"PCA n components set to {args.n_principal_components}")
 
 spelling_correction_model = load_spelling_correction_model(
@@ -140,4 +143,5 @@ spelling_correction_model = load_spelling_correction_model(
 summarization_model = load_summarization_model(
     args.config_json_path,
     args.use_azure_openai,
+    args.temperature,
 )
