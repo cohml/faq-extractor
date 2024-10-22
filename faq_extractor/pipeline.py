@@ -341,7 +341,7 @@ class TopNFAQExtractionPipeline:
                 )
             ]
         else:
-            logger.info(f"Computing {self.evaluation_metric} for FAQ #{faq_id}")
+            logger.info(f"Computing {self.evaluation_metric.name} for FAQ #{faq_id}")
         evaluation_metric_kwargs = {
             "predictions": [faq_text],
             "references": [example_questions],
