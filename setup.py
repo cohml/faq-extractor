@@ -10,7 +10,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.12, <3.13",
     entry_points={
         "console_scripts": [
             "faq-extractor=faq_extractor.main:run_pipeline",
