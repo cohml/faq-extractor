@@ -127,7 +127,7 @@ embedding_model = SentenceTransformer(
     args.embedding_model_name, device=device
 ).eval()
 
-kmeans = KMeans(n_clusters=args.n_clusters, random_state=args.seed)
+kmeans = KMeans(n_clusters=args.n_clusters, random_state=args.random_state)
 
 pca = PCA(n_components=args.n_principal_components)
 logger.info(f"PCA n components set to {args.n_principal_components}")

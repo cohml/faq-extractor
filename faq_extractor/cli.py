@@ -1,6 +1,9 @@
 import argparse
 from pathlib import Path
 
+import numpy as np
+
+
 from .utils import (
     CONFIG_JSON_REQUIRED_FIELDS,
     validate_column_names,
@@ -175,8 +178,8 @@ parser.add_argument(
 
 parser.add_argument(
     "--seed",
-    default=42,
-    type=int,
+    type=lambda x: np.random.RandomState(int(x)),
+    dest="random_state",
     help="Seed value for reproducibility. Default: %(default)s",
 )
 

@@ -11,6 +11,7 @@ from sklearn.decomposition import PCA
 from transformers import pipeline
 from transformers.pipelines.text2text_generation import Text2TextGenerationPipeline
 
+from .cli import args
 from .utils import logger
 
 
@@ -286,7 +287,7 @@ class TopNFAQExtractionPipeline:
         example_answers_by_cluster = []
         for cluster in n_largest_clusters:
             is_in_cluster = np.argwhere(all_clusters == cluster)
-            sample_indices = np.random.choice(
+            sample_indices = args.random_state.choice(
                 np.arange(is_in_cluster.size),
                 size=self.n_example_questions,
             )
