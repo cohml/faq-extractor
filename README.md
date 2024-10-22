@@ -129,10 +129,13 @@ interacting with OpenAI's GPT. The required fields are:
 }
 ```
 
+Replace the values as appropriate for your configuration.
+
 If interacting with GPT via Azure OpenAI, the following fields are required in
 addition:
 
-```
+```json
+{
   "OPENAI_API_VERSION": "2023-05-15",
   "OPENAI_ENDPOINT": "https://api.openai.com/v1/engines/"
 }
