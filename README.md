@@ -34,11 +34,11 @@ representative FAQs.
 
 ## Installation
 
-To install the package and its dependencies, run the following command from
-the root directory of the project:
+To install the package and its dependencies as appropriate for your operating
+system, run the following script from the root directory of the project:
 
 ```bash
-conda env create --file environment.yaml
+bash setup-env.sh
 ```
 
 This will create a new conda environment named `faq-extractor` with all
@@ -109,7 +109,8 @@ faq-extractor --questions-csv-path my_data.csv --config-json-path ./config.json
 - `--evaluation-metric`: Metric for evaluating extracted FAQs (`bertscore` or `rouge`). If unspecified, no evaluation is performed.
 - `--do-spelling-correction`: Flag to enable spelling correction before evaluation.
 - `--use-azure-openai`: Flag indicating whether GPT is deployed via Azure OpenAI.
-- `--seed`: Seed value for reproducibility. Default: `42`.
+- `--temperature`: Temperature setting for GPT generation stage. Default: `None`.
+- `--seed`: Seed value for reproducibility. Default: `None`.
 
 To see this information on the terminal, run the following command:
 
