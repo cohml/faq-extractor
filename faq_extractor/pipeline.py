@@ -287,7 +287,7 @@ class TopNFAQExtractionPipeline:
         example_answers_by_cluster = []
         for cluster in n_largest_clusters:
             is_in_cluster = np.argwhere(all_clusters == cluster)
-            sample_indices = args.random_state.choice(
+            sample_indices = (args.random_state or np.random).choice(
                 np.arange(is_in_cluster.size),
                 size=self.n_example_questions,
             )
