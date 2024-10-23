@@ -44,6 +44,7 @@ def load_questions_csv(
     ------
     ValueError if the required columns are not present.
     """
+    logger.info(f"Loading questions dataset: {questions_csv_path}")
     columns = {questions_column_name: "question"}
     if answers_column_name is not None:
         columns[answers_column_name] = "answer"
@@ -83,16 +84,20 @@ def run_pipeline() -> None:
         answers = questions_df.answer.values
     else:
         answers = None
-    logger.info(f"Loaded {questions.size} questions")
 
     if args.topics_column_name is not None:
         n_topics = questions_df.topic.nunique()
         kmeans.n_clusters = min(n_topics, args.n_max_clusters)
+        logger.info(
+            "K-Means n clusters set to number of topics inferred from dataset "
+            f"column {args.topics_column_name!r}: {kmeans.n_clusters}"
+        )
     elif args.n_clusters is not None:
         kmeans.n_clusters = args.n_clusters
+        logger.info(f"K-Means n clusters set to supplied value: {kmeans.n_clusters}")
     else:
         kmeans.n_clusters = 25
-    logger.info(f"K-Means n clusters set to {kmeans.n_clusters}")
+        logger.info(f"K-Means n clusters set to default value: {kmeans.n_clusters}")
 
     pipeline = TopNFAQExtractionPipeline(
         n_faqs=args.n_faqs,

@@ -376,7 +376,7 @@ class TopNFAQExtractionPipeline:
             evaluation results (if applicable).
         """
         logger.info(
-            f"Extracting {self.n_faqs} FAQs from {questions.size} "
+            f"Extracting {self.n_faqs} FAQs from {questions.size:,} "
             "questions"
         )
         start = perf_counter()
