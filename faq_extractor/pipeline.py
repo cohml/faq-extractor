@@ -15,7 +15,7 @@ from .cli import args
 from .utils import logger
 
 
-FAQ_RE = re.compile(r"FAQ:\s*(?P<faq>.+?)")
+FAQ_RE = re.compile(r"FAQ:\s*(?P<faq>.+)")
 FAQ_ANSWER_RE = re.compile(r"FAQ:\s*(?P<faq>.+?)\s*ANSWER:\s*(?P<answer>.+)")
 
 
@@ -223,7 +223,7 @@ class TopNFAQExtractionPipeline:
         else:
             prompt = (
                 "Here are several questions one might expect to see in a "
-                "customer service context:\n{example_questions}\nSynthesize "
+                f"customer service context:\n{example_questions}\nSynthesize "
                 "what these inquiries are asking about, extract the single "
                 "underlying question common to most or all of them, and "
                 "rephrase it in the simplest, most direct manner possible. "
