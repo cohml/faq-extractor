@@ -68,6 +68,7 @@ parser.add_argument(
 parser.add_argument(
     "--config-json-path",
     type=validate_config,
+    dest="config",
     help=(
         "Path to JSON file enumerating metadata needed to "
         "interact with OpenAI's GPT. Must contain the following "
