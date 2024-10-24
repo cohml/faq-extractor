@@ -98,25 +98,6 @@ parser.add_argument(
 )
 
 parser.add_argument(
-    "--embedding-model-name",
-    default="paraphrase-MiniLM-L6-v2",
-    help=(
-        "Name of HuggingFace model to use when embedding "
-        "questions. Must be compatible with "
-        "``sentence-transformers``. Default: %(default)s"
-    ),
-)
-
-parser.add_argument(
-    "--spelling-correction-model-name",
-    default="oliverguhr/spelling-correction-english-base",
-    help=(
-        "Name of HuggingFace model to use for optional spelling "
-        "before computing evaluation metrics. Default: %(default)s"
-    ),
-)
-
-parser.add_argument(
     "--n-principal-components",
     default=50,
     type=int,
@@ -135,7 +116,8 @@ parser.add_argument(
         'the closer this value aligns with the "true" number of '
         "FAQs in the dataset, the better the algorithm should work. "
         "If unspecified, we will try to infer the optimal value from "
-        "data file, else we will set arbitrarily to 25."
+        "data file, else we will set arbitrarily to 25. Default: "
+        "%(default)s"
     ),
 )
 
@@ -143,7 +125,29 @@ parser.add_argument(
     "--n-max-clusters",
     default=25,
     type=int,
-    help="Maximum number of clusters to create during clustering.",
+    help=(
+        "Maximum number of clusters to create during clustering. "
+        "Default: %(default)s"
+    ),
+)
+
+parser.add_argument(
+    "--embedding-model-name",
+    default="paraphrase-MiniLM-L6-v2",
+    help=(
+        "Name of HuggingFace model to use when embedding "
+        "questions. Must be compatible with "
+        "``sentence-transformers``. Default: %(default)s"
+    ),
+)
+
+parser.add_argument(
+    "--spelling-correction-model-name",
+    default="oliverguhr/spelling-correction-english-base",
+    help=(
+        "Name of HuggingFace model to use for optional spelling "
+        "before computing evaluation metrics. Default: %(default)s"
+    ),
 )
 
 parser.add_argument(
@@ -173,7 +177,10 @@ parser.add_argument(
 parser.add_argument(
     "--use-azure-openai",
     action="store_true",
-    help= "Whether your GPT deployment is accessible through Azure OpenAI."
+    help=(
+        "Whether your GPT deployment is accessible through Azure "
+        "OpenAI. Default: %(default)s"
+    ),
 )
 
 parser.add_argument(

@@ -96,11 +96,11 @@ faq-extractor --questions-csv-path my_data.csv --config-json-path ./config.json
 - `--config-json-path`: Path to the configuration JSON file required to connect to GPT/OpenAI APIs. **Required**.
 - `--n-faqs`: Number of most frequent FAQs to extract. Default: `5`.
 - `--n-example-questions`: Number of example questions to include per extracted FAQ. Default: `5`.
-- `--embedding-model-name`: Name of the embedding model (compatible with `sentence-transformers`). Default: `paraphrase-MiniLM-L6-v2`.
-- `--spelling-correction-model-name`: Name of the HuggingFace model for spelling correction. Default: `oliverguhr/spelling-correction-english-base`.
 - `--n-principal-components`: Number of dimensions to project semantic vectors onto before clustering. Default: `50`.
 - `--n-clusters`: Number of clusters for FAQ extraction. If unspecified, inferred from the data or set to `25`.
 - `--n-max-clusters`: Maximum number of clusters for clustering. Default: `25`.
+- `--embedding-model-name`: Name of the embedding model (compatible with `sentence-transformers`). Default: `paraphrase-MiniLM-L6-v2`.
+- `--spelling-correction-model-name`: Name of the HuggingFace model for spelling correction. Default: `oliverguhr/spelling-correction-english-base`.
 - `--evaluation-metric`: Metric for evaluating extracted FAQs (`bertscore` or `rouge`). If unspecified, no evaluation is performed.
 - `--do-spelling-correction`: Flag to enable spelling correction before evaluation.
 - `--use-azure-openai`: Flag indicating whether GPT is deployed via Azure OpenAI.
