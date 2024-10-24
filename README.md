@@ -8,8 +8,7 @@ This package leverages a pipeline of language models and machine learning
 algorithms to perform dimensionality reduction, clustering, and summarization.
 
 It is primarily intended to be used through a command-line utility
-(`faq-extractor`) installed in a conda environment. However, the main file
-`main.py` can also be executed directly with the same effect.
+(`faq-extractor`) installed into a conda environment.
 
 ## Overview
 
@@ -45,10 +44,6 @@ This will create a new conda environment named `faq-extractor` with all
 required dependencies. The environment includes a `faq-extractor`
 command-line utility, which can be used to interact with the package.
 
-If you experience `numpy` errors during or after installation, try installing
-`pytorch` from `conda-forge` instead of the conventional `pytorch` conda
-channel.
-
 ## How It Works
 
 The FAQ extraction pipeline uses the following components:
@@ -75,9 +70,9 @@ The FAQ extraction pipeline uses the following components:
 
 ## Command-Line Utility
 
-`faq_extractor` is primarily accessed via the `faq-extractor` CLI tool, which
-processes a CSV file containing questions and outputs the extracted FAQs to a
-JSON file. Running it is equivalent to executing the main file `main.py`.
+`faq_extractor` is primarily accessed via the `faq-extractor` CLI utility.
+This tool processes a CSV file containing questions and outputs the extracted
+FAQs to a JSON file with examples, and optionally with answers and metrics.
 
 ### Example Command
 
@@ -86,7 +81,7 @@ faq-extractor --questions-csv-path my_data.csv --config-json-path ./config.json
 ```
 
 > **Tip:**
-> To simply get a quick feel for what `faq-extractgor` will generate,
+> To simply get a quick feel for what `faq-extractor` will generate,
 > note that a Q&A dataset is already provided as the default argument for
 > `--questions-csv-path`. So that argument can be safely omitted when quickly
 > experimenting.
@@ -109,7 +104,7 @@ faq-extractor --questions-csv-path my_data.csv --config-json-path ./config.json
 - `--evaluation-metric`: Metric for evaluating extracted FAQs (`bertscore` or `rouge`). If unspecified, no evaluation is performed.
 - `--do-spelling-correction`: Flag to enable spelling correction before evaluation.
 - `--use-azure-openai`: Flag indicating whether GPT is deployed via Azure OpenAI.
-- `--temperature`: Temperature setting for GPT generation stage. Default: `None`.
+- `--temperature`: Temperature setting for GPT generation stage. Default: `0.2`.
 - `--seed`: Seed value for reproducibility. Default: `None`.
 
 To see this information on the terminal, run the following command:
@@ -130,8 +125,6 @@ interacting with OpenAI's GPT. The required fields are:
 }
 ```
 
-Replace the values as appropriate for your configuration.
-
 If interacting with GPT via Azure OpenAI, the following fields are required in
 addition:
 
@@ -141,6 +134,8 @@ addition:
   "OPENAI_ENDPOINT": "https://api.openai.com/v1/engines/"
 }
 ```
+
+Replace the values as appropriate for your configuration.
 
 ## Example Workflow
 
