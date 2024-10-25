@@ -33,9 +33,32 @@ def get_device() -> str:
         return "cpu"
 
 
+def load_embedding_model(
+    embedding_model_name: str,
+    device: str,
+) -> SentenceTransformer:
+    """
+    Parameters
+    ----------
+    embedding_model_name : str
+        Name of the model to use for embedding question texts.
+    device : str
+        "cuda", "mps", or "cpu", depending on available hardware.
+
+    Returns
+    -------
+    SentenceTransformer
+        Pretrained embedding model.
+    """
+    embedding_model = SentenceTransformer(embedding_model_name, device=device)
+    logger.info(f"Model weights loaded onto {embedding_model.device.type.upper()}")
+    return embedding_model.eval()
+
+
 def load_spelling_correction_model(
     do_spelling_correction: bool,
     spelling_correction_model_name: str,
+    device: str,
 ) -> Optional[pipeline]:
     """
     Load the spelling correction model for use when computing metrics.
@@ -46,6 +69,8 @@ def load_spelling_correction_model(
         Whether spelling correction should be enabled.
     spelling_correction_model_name : str
         Name of the model to use for spelling correction.
+    device : str
+        "cuda", "mps", or "cpu", depending on available hardware.
 
     Returns
     -------
@@ -55,21 +80,25 @@ def load_spelling_correction_model(
     """
     if args.do_spelling_correction:
         logger.info(
-            f"Loading pretrained spelling correction model: "
+            "Loading pretrained spelling correction model: "
             + spelling_correction_model_name
         )
-        return pipeline(
+        spelling_correction_model = pipeline(
             "text2text-generation",
             model=args.spelling_correction_model_name,
             device=-1 if device == "cpu" else 0,
             torch_dtype=torch.float16,
+        )
+        logger.info(
+            f"Model weights loaded onto {spelling_correction_model.device.type.upper()}"
         )
     else:
         logger.warning(
             "Skipping spelling correction model. Evaluation metrics "
             "may be artificially low."
         )
-        return None
+        spelling_correction_model = None
+    return spelling_correction_model
 
 
 def load_summarization_model(
@@ -126,18 +155,12 @@ def load_summarization_model(
 
 device = get_device()
 
-embedding_model = SentenceTransformer(
-    args.embedding_model_name, device=device
-).eval()
-
-kmeans = KMeans(n_clusters=args.n_clusters, random_state=args.random_state)
-
-pca = PCA(n_components=args.n_principal_components, random_state=args.random_state)
-logger.info(f"PCA n components set to {args.n_principal_components}")
+embedding_model = load_embedding_model(args.embedding_model_name, device)
 
 spelling_correction_model = load_spelling_correction_model(
     args.do_spelling_correction,
     args.spelling_correction_model_name,
+    device,
 )
 
 summarization_model = load_summarization_model(
@@ -145,3 +168,8 @@ summarization_model = load_summarization_model(
     args.temperature,
     args.config,
 )
+
+pca = PCA(n_components=args.n_principal_components, random_state=args.random_state)
+logger.info(f"PCA n components set to {args.n_principal_components}")
+
+kmeans = KMeans(n_clusters=args.n_clusters, random_state=args.random_state)
