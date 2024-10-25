@@ -73,22 +73,22 @@ def load_spelling_correction_model(
 
 
 def load_summarization_model(
-    config: dict[str, Any],
     use_azure_openai: bool,
     temperature: Optional[float],
+    config: dict[str, Any],
 ) -> Callable:
     """
     Initialize and return the OpenAI client for GPT inference.
 
     Parameters
     ----------
-    config : dict[str, Any]
-        Configuration dictionary containing API credentials and model
-        metadata.
     use_azure_openai : bool
         Whether to connect via Azure OpenAI or directly via OpenAI.
     temperature : float
         Temperature for GPT token generation.
+    config : dict[str, Any]
+        Configuration dictionary containing API credentials and model
+        metadata.
 
     Returns
     -------
@@ -108,7 +108,7 @@ def load_summarization_model(
         for required_field in ["OPENAI_API_VERSION", "OPENAI_ENDPOINT"]:
             if required_field not in config:
                 raise KeyError(
-                    f"{required_field!r} is missing from {config_json_path}."
+                    f"{required_field!r} is missing from configuration JSON."
                 )
         openai_client = AzureOpenAI(
             api_key=config["OPENAI_API_KEY"],
@@ -141,7 +141,7 @@ spelling_correction_model = load_spelling_correction_model(
 )
 
 summarization_model = load_summarization_model(
-    args.config_json_path,
     args.use_azure_openai,
     args.temperature,
+    args.config,
 )
