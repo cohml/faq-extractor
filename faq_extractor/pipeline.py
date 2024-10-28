@@ -248,6 +248,7 @@ class TopNFAQExtractionPipeline:
             logger.warning(
                 "Unable to parse GPT output. Generating new response."
             )
+            n_attempted += 1
         if n_attempted == 3:
             logger.error(
                 "Unable to parse GPT output. Returning raw string."
