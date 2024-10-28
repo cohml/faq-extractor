@@ -52,7 +52,6 @@ def load_questions_csv(
         columns[topics_column_name] = "topic"
     return (
         pd.read_csv(questions_csv_path, usecols=columns)
-          .loc[:, list(columns)]
           .rename(columns=columns)
     )
 
